@@ -7,7 +7,7 @@ use Core\Model\User;
 
 
 
-// require_once 'vendor/autoload.php';
+
 
 spl_autoload_register(function ($class_name) {
     if (strpos($class_name, 'Core') === false)
