@@ -48,9 +48,21 @@ class Transactions extends Controller
                 $user_id = $_SESSION['user']['user_id'];
                 $all_transaction = $transaction->get_transactions_by_logged_in_user( $user_id);
             
+                
+                $filter_transaction = array();
+                foreach ($all_transaction as $transaction) {
+
+                        $date = new \DateTime($transaction->created_att);
+                        $created_at = $date->format('d/m/y');
+                        $date_today = date('d/m/y');
+
+                        if ($created_at == $date_today) {
+                                $filter_transaction[] = $transaction;
+                        }
+                }
     
                 $total = 0;
-                foreach($all_transaction as $transaction){
+                foreach($filter_transaction as $transaction){
                 $total += $transaction->total;
 
                 }

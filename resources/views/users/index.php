@@ -51,7 +51,7 @@ endif;
         <table class="table  table-hover">
             <thead class="table-primary fs-5">
                 <tr>
-                    <th scope="col">#ID</th>
+                    <th scope="col">Num</th>
                     <th scope="col">Email</th>
                     <th scope="col">Display Name</th>
                     <th scope="col">Username</th>
@@ -60,10 +60,14 @@ endif;
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($data->users as $user):?>
+                <?php
+                 $id = 0;
+                foreach ($data->users as $user):
+                    $id++;
+                ?>
                 <tr>
 
-                    <td><?= $user->id ?></td>
+                    <td><?= $id ?></td>
                     <td><?= $user->email ?></td>
                     <td><?= $user->display_name ?></td>
                     <td><?= $user->username ?></td>

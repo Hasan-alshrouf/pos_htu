@@ -14,7 +14,7 @@
             <input type="hidden" name="id" id="idItem">
 
             <label class="mb-2" for="text">Item</label>
-            <input type="email" name="text" id="updateItem">
+            <input type="email" name="text" id="updateItem" disabled>
 
             <label class="mb-2" for="Quantity">Quantity</label>
             <input type="number" name="Quantity" id="updateQuantity" data-old="" max="" min="0" data-database="">
@@ -37,7 +37,7 @@
     <div class="popup-desian">
         <h2 class="done">Done!</h2>
 
-        <p>You've successfully Edit Transaction !</p>
+        <p>You've successfully Edit Transaction!</p>
 
         <i class="i-done fa-sharp fa-solid fa-circle-check  btn-success"></i>
     </div>

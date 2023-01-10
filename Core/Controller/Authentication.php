@@ -74,7 +74,7 @@ class Authentication extends Controller
                         'username' => $logged_in_user->username,
                         'display_name' => $logged_in_user->display_name,
                         'user_id' => $logged_in_user->id,
-                        'is_admin_view' => true
+                       
                 );
 
                 

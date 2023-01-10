@@ -266,12 +266,12 @@ class Model
     protected function relate_table()
     {
         $table_name = \get_class($this);
+
        
-      
         $table_name_arr = \explode('\\', $table_name);
         
         $class_name = $table_name_arr[\array_key_last($table_name_arr)]; // $table_name_arr[2]
-    
+      
         $final_clas_name = \strtolower($class_name) . "s";
        
         $this->table = $final_clas_name;

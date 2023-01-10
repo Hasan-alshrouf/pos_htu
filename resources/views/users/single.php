@@ -5,7 +5,8 @@
             <?php if (empty($data->user_one->picture)) : ?>
             <img src="/resources/img/168882.png" alt="">
             <?php else : ?>
-            <img src="<?= "http://" . $_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_one->picture ?>" alt="">
+            <img src="<?= $_SERVER['REQUEST_SCHEME'] ."://" . $_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_one->picture ?>"
+                alt="">
             <?php endif;  ?>
         </div>
 

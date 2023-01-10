@@ -21,8 +21,6 @@ class Sales extends Controller
         {
                 $this->auth();
                 $user = new User; // new model user
-         
-
                 $user_id = $_SESSION['user']['user_id'];
                 $this->data['user_picture'] = $user->get_by_id( $user_id );
         }
@@ -35,11 +33,9 @@ class Sales extends Controller
         public function index() 
         {
          $this->permissions(['sales:read' , 'sales:create' ,'sales:delete']);
+               
            $this->view = 'sales.index';
      
-          
-        
-    
         }
 
 
@@ -51,6 +47,7 @@ class Sales extends Controller
         */
         public function edit() 
         {
+                
          $this->permissions(['sales:update']);
            $this->view = 'sales.edit';
           

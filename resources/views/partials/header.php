@@ -2,14 +2,16 @@
 
 use Core\Helpers\Helper; ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="<?= "http://" . $_SERVER['HTTP_HOST'] ?>/resources/img/Kids-Finance.jpg">
+    <link rel="icon" type="image/x-icon"
+        href="<?=  $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] ?>/resources/img/Kids-Finance.jpg">
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
@@ -19,7 +21,8 @@ use Core\Helpers\Helper; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
         integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="<?= "http://" . $_SERVER['HTTP_HOST'] ?>/resources/css/dashboard/styles.css">
+    <link rel="stylesheet"
+        href="<?=  $_SERVER['REQUEST_SCHEME'] . "://" .$_SERVER['HTTP_HOST'] ?>/resources/css/dashboard/styles.css">
 
 </head>
 
@@ -29,7 +32,8 @@ use Core\Helpers\Helper; ?>
         <div class="collapse navbar-collapse" id="clock">
 
             <a class="navbar-brand   " href="#">
-                <img src="<?= "http://" . $_SERVER['HTTP_HOST'] ?>/resources/views/partials/logo1.jpg" alt="">
+                <img src="<?=  $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] ?>/resources/views/partials/logo1.jpg"
+                    alt="">
 
             </a>
 
@@ -49,10 +53,12 @@ use Core\Helpers\Helper; ?>
             <?php if (empty($data->user_picture->picture)) : ?>
             <img src="/resources/img/168882.png" alt="">
             <?php else : ?>
-            <img src="<?= "http://" . $_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_picture->picture ?>"
+            <img src="<?=  $_SERVER['REQUEST_SCHEME'] . "://" .$_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_picture->picture ?>"
                 alt="">
             <?php endif;  ?>
         </div>
+
+
 
         <!-- dropdown -->
         <div class="dropdown d-lg-none d-sm-block ">
@@ -109,7 +115,7 @@ use Core\Helpers\Helper; ?>
         <a class="btn btn-secondary d-lg-block d-sm-none d-none" href="/logout">Logout
             <i class="fa-sharp fa-solid fa-right-from-bracket"></i>
         </a>
-        <div class="digital-clock ms-2 me-4 fs-4 ">00:00:00</div>
+        <div class="digital-clock ms-3 me-4 fs-3  ">00:00</div>
 
 
 
@@ -125,13 +131,7 @@ use Core\Helpers\Helper; ?>
 
                         <span class="title-word title-word-1 fs-3">Welcome !</span>
                         <div class="title fs-2">
-
-
-                            <b class=" title-word title-word-1 fs-6">
-                                <?=  $_SESSION['user'] [ 'display_name' ] ?></b>
-
                             <hr>
-
 
                         </div>
 

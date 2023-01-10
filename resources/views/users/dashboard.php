@@ -102,7 +102,7 @@
 
 
 <div class="row">
-    <div class=" col-lg-12  col-md-11 col-11  m-auto     top-five">
+    <div class=" col-lg-12  col-md-11 col-11  m-auto  mb-5   top-five  top-five-das">
         <div class=" mb-2  fs-6  ">
             <caption>Top Five Expensive Items To Buy</caption>
 
@@ -132,7 +132,14 @@
                         <td><?= $item->name ?></td>
                         <td><?= $item->cost ?></td>
                         <td><?= $item->selling_price ?></td>
-                        <td><?= $item->	quantity ?></td>
+                        <td><?php  
+                    if($item->quantity != 0): ?>
+                            <?= $item->quantity?>
+                            <?php else :  ?>
+                            0 (Empty)
+
+                        </td>
+                        <?php endif?>
 
                         <td>
                             <a href="./item?id=<?= $item->id ?>">
@@ -146,6 +153,72 @@
 
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="row">
+    <div class=" col-lg-4  col-md-11 col-11  mt-3    top-five  ms-4 me-3 ">
+
+        <p class="text-dark mb-5">The quantity in stock for each item </p>
+        <p class="quantity-in-stock"> </p>
+
+        <div style="overflow-x:auto;">
+
+
+            <?php foreach ($data->quantity_item as $item) :   ?>
+
+
+            <div class="mb-4">
+
+                <div class=" d-flex justify-content-between me-2">
+                    <p class="text-muted"><?= $item->name ?></p>
+                    <p class="text-dark"> <?= $item->quantity?></p>
+                </div>
+                <div class="progress ">
+
+                    <div class="progress-bar progress-quantity " data-progress=" <?= $item->quantity ?>">
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+
+
+
+        </div>
+    </div>
+
+
+    <div class=" col-lg-7  col-md-11 col-11  mt-3    top-five  ms-lg-5 mx-4">
+
+        <p class="text-dark mb-5">Total sales for each day in the last week </p>
+        <p class="quantity-in-stock"> </p>
+
+        <div style="overflow-x:auto;">
+
+
+            <?php foreach ($data->last_week as $item) :   ?>
+
+
+            <div class="mb-4">
+
+                <div class=" d-flex justify-content-between me-2">
+                    <p class="text-muted"><?= $item->day ?></p>
+                    <p class="text-dark"> <?= $item->total?>$</p>
+                </div>
+                <div class="progress  ">
+
+                    <div class="progress-bar bg-success progress-total" data-progress=" <?= $item->total ?>">
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+
+
+
         </div>
     </div>
 </div>

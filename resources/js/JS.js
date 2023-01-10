@@ -1,9 +1,4 @@
 
-////////////////////////////////////////////////
-
-
-
-
 
 const link = window.location.href;
 
@@ -31,8 +26,45 @@ $(".Edit-Profile").click(function () {
 
 
 
+//////////////////////////progress-bar //////////////////////////
+
+$('.progress-quantity').each(function () {
+
+    var number = $(this).attr('data-progress');
+
+
+    $(this).animate({
+
+
+
+        width: parseInt(number) + '%'
+
+
+    }, 1500);
+})
+
+$('.progress-total').each(function () {
+
+    var total = $(this).attr('data-progress') / 100;
+
+
+    $(this).animate({
+
+
+
+        width: parseInt(total) + '%'
+
+
+    }, 1500);
+})
+
+
+
+
+
 
 //////////////////// clock/////////////////////////////////////
+
 $(document).ready(function () {
     $("#navbar-side").fadeIn(0);
     clockUpdate();
@@ -64,26 +96,22 @@ function clockUpdate() {
 
     var h = addZero(twelveHour(date.getHours()));
     var m = addZero(date.getMinutes());
-    var s = addZero(date.getSeconds());
 
-    $('.digital-clock').text(h + ':' + m + ':' + s)
+
+    $('.digital-clock').text(h + ':' + m)
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////API///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-
 ///////////////////////append item name from table items/////////////////////////////////
 
 
 
-
+var num = 1;
 $.ajax({
     type: "GET",
     url: "http://pos_htu.local/sales_api",
@@ -200,7 +228,7 @@ $(function () {
 
                         table.append(`
             <tr>
-                <td>${data['item_id']}</td>
+                <td>${num}</td>
                 <td>${item}</td>
                 <td>${data['quntity_item']}</td>
                 <td>${data['total']} $</td>
@@ -214,7 +242,7 @@ $(function () {
                </td>
             </tr>
            `);
-
+                        num++;
                     }
                 });
             } else {
@@ -251,6 +279,7 @@ $(function () {
 
 
 
+
     });
 });
 
@@ -270,7 +299,7 @@ $.ajax({
             $('#table-transaction').append(`
            <tr>
             
-            <td>${item.id}</td>
+           <td>${num}</td>
             <td>${item.name}</td>
             <td>${item.quntity_item}</td>
             <td>${item.total} $</td>
@@ -283,12 +312,11 @@ $.ajax({
             <a href="/sales?id_delete=${item.transactions_id}" class="delete btn btn-danger" id="${item.transactions_id}">
             Delete</i>
            </a>
-
            
            </td>
            </tr>
        `);
-
+            num++;
         });
 
     }
@@ -484,6 +512,3 @@ if (id_delete != null) {
 
 
 }
-
-
-

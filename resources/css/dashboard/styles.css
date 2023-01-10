@@ -83,7 +83,7 @@ dashboard home
 }
 
 .l-bg-cherry {
-    background: linear-gradient(to right, #493240, #f09) !important;
+    background: linear-gradient(to right, #493240, #ff0404) !important;
     color: #fff;
 }
 
@@ -129,6 +129,17 @@ dashboard home
 
 }
 
+
+/*  clock*/
+.digital-clock {
+
+
+    border: inset;
+    font-family: monospace;
+    padding: 0.2rem;
+    border-radius: 1rem;
+    border-block-end: none;
+}
 
 
 /* my profile  */
@@ -369,7 +380,7 @@ single user
 
 /* top-five items */
 .top-five {
-    box-shadow: 0px 20px 40px -5px #000;
+    box-shadow: 0px 3px 20px -5px #000;
     border-radius: 60px;
     font-family: cursive;
     padding: 3rem;
@@ -508,10 +519,10 @@ p {
 }
 
 
-/* enjoy */
+/* Welcome  */
 
 .title-word {
-    animation: color-animation 4s linear infinite;
+    animation: color-animation 10s linear infinite;
 }
 
 .title-word-1 {
@@ -527,17 +538,16 @@ p {
     }
 
     32% {
-        color: var(--color-1)
+        color: var(--color-2)
     }
 
     33% {
-        color: var(--color-2)
+        color: var(--color-1)
     }
 
     65% {
         color: var(--color-2)
     }
-
 
 
     100% {
@@ -550,6 +560,8 @@ p {
     font-weight: 700;
 
 }
+
+
 
 
 /*  SESSION  error */
@@ -571,14 +583,48 @@ p {
 
 }
 
+
+/* progress */
+
+.progress {
+    margin-top: -1rem;
+
+
+
+}
+
+
+.quantity-in-stock {
+
+    border: .4px solid #4082f5;
+    top: -1rem;
+    position: relative;
+
+
+
+}
+
+
+.top-five-das {
+    width: 95%;
+}
+
+
+
+
+
+
+
+
+
 /*  */
 
 
 @media only screen and (max-width: 900px) and (min-width:201px) {
     .top-five {
-        box-shadow: 0px 20px 40px -5px #000;
+        box-shadow: 0px 3px 20px -5px #000;
         border-radius: 10px;
-        font-family: cursive;
+        font-family: inherit;
         padding: 1rem;
         margin-bottom: 10rem;
 

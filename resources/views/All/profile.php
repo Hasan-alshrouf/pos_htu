@@ -5,13 +5,15 @@
             <?php if (empty($data->user_one->picture)) : ?>
             <img src="/resources/img/168882.png" alt="">
             <?php else : ?>
-            <img src="<?= "http://" . $_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_one->picture ?>" alt="">
+            <img src="<?= $_SERVER['REQUEST_SCHEME'] ."://" . $_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_one->picture ?>"
+                alt="">
             <?php endif;  ?>
         </div>
 
     </div>
     <div class="col-lg-9 col-md-12 col-sm-12">
         <div class="mt-5 mb-2 d-flex flex-row-reverse gap-3">
+
 
             <a class="btn btn-danger Edit-Profile">Edit Profile
                 <i class="fa-sharp fa-solid fa-user-gear"></i>
@@ -63,27 +65,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="row profile d-flex align-items-end d-none ">
     <div class="mt-2  ">
 
@@ -111,7 +92,7 @@
                             <?php if (empty($data->user_one->picture)) : ?>
                             <img src="/resources/img/168882.png" alt="">
                             <?php else : ?>
-                            <img src="<?= "http://" . $_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_one->picture ?>"
+                            <img src="<?= $_SERVER['REQUEST_SCHEME'] . "://" .$_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_one->picture ?>"
                                 alt="">
                             <?php endif;  ?>
 
@@ -136,14 +117,14 @@
             <div class="container  py-5">
 
                 <div class="row mt-2">
-                    <div class="col-md-6 col-sd-2"><label class="labels">Username</label><input type="text"
+                    <div class="col-md-6 col-sd-2"><label class="labels">Username</label><input type="text" required
                             class="form-control" name="username" value="<?=$data->user_one->username ?>"></div>
-                    <div class="col-md-6 col-sd-2"><label class="labels">Display Name</label><input type="text"
+                    <div class="col-md-6 col-sd-2"><label class="labels">Display Name</label><input type="text" required
                             name="display_name" class="form-control" value="<?=  $data->user_one->display_name ?>">
                     </div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12 col-sd-6"><label class="labels">Email</label><input type="email"
+                    <div class="col-md-12 col-sd-6"><label class="labels">Email</label><input type="email" required
                             class="form-control" c name="email" value="<?= $data->user_one->email ?>"></div>
                     <div class="col-md-12 col-sd-6"><label class="labels">Phone</label><input type="tel"
                             class="form-control" name="phone" value="<?=$data->user_one->phone ?>"></div>

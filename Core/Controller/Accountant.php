@@ -24,8 +24,6 @@ class Accountant extends Controller
     {
             $this->auth();
             $user = new User; // new model user
-         
-
             $user_id = $_SESSION['user']['user_id'];
             $this->data['user_picture'] = $user->get_by_id( $user_id );
          

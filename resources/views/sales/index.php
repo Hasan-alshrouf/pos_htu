@@ -59,7 +59,7 @@
             <table class="table table-hover Transactions-table   ">
                 <thead class="table-dark fs-5 ">
                     <tr>
-                        <th scope="col">#ID</th>
+                        <th scope="col">Num</th>
                         <th scope="col">Item</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Total Price</th>

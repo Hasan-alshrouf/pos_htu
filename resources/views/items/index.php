@@ -55,9 +55,9 @@
     </div>
     <div style="overflow-x:auto;">
         <table class="table table-hover ">
-            <thead class="table-active fs-5">
+            <thead class="table-danger fs-5">
                 <tr>
-                    <th scope="col">#ID</th>
+                    <th scope="col">Num</th>
                     <th scope="col">Name</th>
                     <th scope="col">Cost</th>
                     <th scope="col">Selling Price</th>
@@ -68,12 +68,16 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($data->items as $item) : 
+                <?php
+                 $id = 0;
+                foreach ($data->items as $item) : 
+                    
                 $date1 = new \DateTime($item->created_at);
                 $created_at = $date1->format('d/m/Y');
+                    $id++;
                 ?>
                 <tr>
-                    <td><?= $item->id ?></td>
+                    <td><?= $id ?></td>
                     <td><?= $item->name ?></td>
                     <td><?= $item->cost ?></td>
                     <td><?= $item->selling_price ?></td>

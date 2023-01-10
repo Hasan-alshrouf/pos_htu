@@ -20,11 +20,11 @@ class Users extends Controller
      {
              $this->auth();
              $user = new User; // new model user
-         
-
              $user_id = $_SESSION['user']['user_id'];
              $this->data['user_picture'] = $user->get_by_id( $user_id );
+           
      }
+
 
      /**
      * Gets all users
@@ -44,17 +44,18 @@ class Users extends Controller
          $all_users = array () ;
         $all = array () ;
           foreach ( $selected_users as   $users) {
-            // var_dump($users);
+           
             
             foreach ($users as $key => $user) {
               $all_users[$key] = \htmlspecialchars($user);
-              
+             
            }
+          
+             
             $all[] = (object)$all_users;
  
           }
-          
-
+         
        
         
           $this->data['users'] = (object)$all;
@@ -280,8 +281,9 @@ class Users extends Controller
      */
     public function profile()
     {
-        // $this->permissions(['user:read', 'user:update']);
-        $this->view = 'my_profile';
+
+        
+        $this->view = 'All.profile';
         $user = new User; // new model user
        
         $carent_user = $user->get_by_id( $_SESSION['user']['user_id']);   

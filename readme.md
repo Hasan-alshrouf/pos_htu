@@ -1,4 +1,4 @@
-# TODO List API Documentation
+# POS List API Documentation
 
 Response Schema:
 JSON OBJECT {"success": Boolean, "message_code": String, "body": Array}
