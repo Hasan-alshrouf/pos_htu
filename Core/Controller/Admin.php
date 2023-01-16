@@ -25,11 +25,12 @@ class Admin extends Controller
         public function index()
         {
 
+              
                 // admin
                 if (Helper::check_permission(['role:admin'])) {
                         
                         $this->view = 'users.dashboard';
-
+                    
 
                         //get count_user
                         $user = new User; // new model user
@@ -68,14 +69,7 @@ class Admin extends Controller
                        
 
 
-                        //total_sales
-                        $all_transaction = $transaction->get_all();
-    
-                       $total = 0;
-                       foreach($all_transaction as $transaction){
-                      $total += $transaction->total;
-                     }
-                      $this->data['total_sales'] = $total;
+                        
 
 
 
@@ -92,131 +86,148 @@ class Admin extends Controller
                         }
 
 
-
-                        // Total sales for each day in the last week
-                        $filter = array();
-                        $totalMonday = 0;
-                        $totalTuesday = 0;
-                        $totalWednesday = 0;
-                        $totalThursday = 0;
-                        $totalFriday = 0;
-                        $totalSaturday = 0;
-                        $totalSunday = 0;
-
-                foreach ($all_transaction as $key => $transaction) {
-
-                        $date = new \DateTime($transaction->created_att);
-                        $created_at = $date->format('d/m/Y');
-                       
-
-                        $Monday = date('d/m/Y', strtotime("last week Monday"));            
-                        $Tuesday = date('d/m/Y', strtotime("last week Tuesday"));
-                        $Wednesday = date('d/m/Y', strtotime("last week Wednesday"));
-                        $Thursday = date('d/m/Y', strtotime("last week Thursday"));
-                        $Friday = date('d/m/Y', strtotime("last week Friday"));
-                        $Saturday = date('d/m/Y', strtotime("last week Saturday"));
-                        $Sunday = date('d/m/Y', strtotime("last week Sunday"));
-
-
-                        switch ($created_at) {
-                                case $Monday :
-                                        
-                                        $totalMonday += $transaction->total;
-                                        $filter[0] = array( // set up the user session that idecates that the user is logged in. 
-                                                'id' => "1",
-                                                'day' => "Monday",
-                                                'total' => $totalMonday,
-                                         
-                                            );
-                                
-                                         
-                                    break;
-                                
-                                case $Tuesday:
-                                        
-                                        $totalTuesday += $transaction->total;
-                                        $filter[1] = array(  
-                                                'id' => "2",
-                                                'day' => "Tuesday",
-                                                'total' => $totalTuesday,
-                                         
-                                            );
-                                   
-                                    break;
-                                case $Wednesday:
-                                        
-                                        $totalWednesday += $transaction->total;
-                                        $filter[2] = array(  
-                                                'id' => "3",
-                                                'day' => "Wednesday",
-                                                'total' => $totalWednesday,
-                                         
-                                            );
-                                   
-                                    break;
-                                case $Thursday:
-                                        
-                                        $totalThursday += $transaction->total;
-                                        $filter[3] = array(  
-                                                'id' => "4",
-                                                'day' => "Thursday",
-                                                'total' => $totalThursday,
-                                         
-                                            );
-                                   
-                                    break;
-                                case $Friday:
-                                        
-                                        $totalFriday += $transaction->total;
-                                        $filter[4] = array(  
-                                                'id' => "5",
-                                                'day' => "Friday",
-                                                'total' => $totalFriday,
-                                         
-                                            );
-                                   
-                                    break;
-                                case $Saturday:
-                                        
-                                        $totalSaturday += $transaction->total;
-                                        $filter[5] = array(  
-                                                'id' => "6",
-                                                'day' => "Saturday",
-                                                'total' => $totalSaturday,
-                                         
-                                            );
-                                       
-                                    break;
-                                case $Sunday:
-                                        
-                                        $totalSunday += $transaction->total;
-                                        $filter[6] = array(  
-                                                'id' => "7",
-                                                'day' => "Sunday",
-                                                'total' => $totalSunday,
-                                         
-                                            );
-                                   
-                                    break;
-                            }
-               
-                        }
-
-                         
-                        
-
-                       
-                        foreach ($filter as $key => $value) {
-                         
-
-                                $final[$key] = (object)$value;
-                               
-                              
-                        }
-                        sort($final );
+                        //total_sales
+                        $all_transaction = $transaction->get_all();
+    
+                       $total = 0;
                       
-                       
-                        $this->data['last_week'] =   $final;
+                       foreach($all_transaction as $transaction){
+                        $total += $transaction->total;
+                       }
+                        $this->data['total_sales'] = $total;
+                        
+                       if(!empty($all_transaction)){
+
+                                
+          
+                                  // Total sales for each day in the last week
+                                  $filter = array();
+                                  $totalMonday = 0;
+                                  $totalTuesday = 0;
+                                  $totalWednesday = 0;
+                                  $totalThursday = 0;
+                                  $totalFriday = 0;
+                                  $totalSaturday = 0;
+                                  $totalSunday = 0;
+          
+                          foreach ($all_transaction as $key => $transaction) {
+          
+                                  $date = new \DateTime($transaction->created_att);
+                                  $created_at = $date->format('d/m/Y');
+                                 
+          
+                                  $Monday = date('d/m/Y', strtotime("last week Monday"));
+                                              
+                                  $Tuesday = date('d/m/Y', strtotime("last week Tuesday"));
+                                  $Wednesday = date('d/m/Y', strtotime("last week Wednesday"));
+                                  $Thursday = date('d/m/Y', strtotime("last week Thursday"));
+                                  $Friday = date('d/m/Y', strtotime("last week Friday"));
+                                  $Saturday = date('d/m/Y', strtotime("last week Saturday"));
+                                  $Sunday = date('d/m/Y', strtotime("last week Sunday"));
+          
+          
+                                  switch ($created_at) {
+                                          case $Monday :
+                                                  
+                                                  $totalMonday += $transaction->total;
+                                                  $filter[0] = array( // set up the user session that idecates that the user is logged in. 
+                                                          'id' => "1",
+                                                          'day' => "Monday",
+                                                          'total' => $totalMonday,
+                                                   
+                                                      );
+                                          
+                                                   
+                                              break;
+                                          
+                                          case $Tuesday:
+                                                  
+                                                  $totalTuesday += $transaction->total;
+                                                  $filter[1] = array(  
+                                                          'id' => "2",
+                                                          'day' => "Tuesday",
+                                                          'total' => $totalTuesday,
+                                                   
+                                                      );
+                                             
+                                              break;
+                                          case $Wednesday:
+                                                  
+                                                  $totalWednesday += $transaction->total;
+                                                  $filter[2] = array(  
+                                                          'id' => "3",
+                                                          'day' => "Wednesday",
+                                                          'total' => $totalWednesday,
+                                                   
+                                                      );
+                                             
+                                              break;
+                                          case $Thursday:
+                                                  
+                                                  $totalThursday += $transaction->total;
+                                                  $filter[3] = array(  
+                                                          'id' => "4",
+                                                          'day' => "Thursday",
+                                                          'total' => $totalThursday,
+                                                   
+                                                      );
+                                             
+                                              break;
+                                          case $Friday:
+                                                  
+                                                  $totalFriday += $transaction->total;
+                                                  $filter[4] = array(  
+                                                          'id' => "5",
+                                                          'day' => "Friday",
+                                                          'total' => $totalFriday,
+                                                   
+                                                      );
+                                             
+                                              break;
+                                          case $Saturday:
+                                                  
+                                                  $totalSaturday += $transaction->total;
+                                                  $filter[5] = array(  
+                                                          'id' => "6",
+                                                          'day' => "Saturday",
+                                                          'total' => $totalSaturday,
+                                                   
+                                                      );
+                                                 
+                                              break;
+                                          case $Sunday:
+                                                  
+                                                  $totalSunday += $transaction->total;
+                                                  $filter[6] = array(  
+                                                          'id' => "7",
+                                                          'day' => "Sunday",
+                                                          'total' => $totalSunday,
+                                                   
+                                                      );
+                                             
+                                              break;
+                                      }
+                         
+                                  }
+          
+                                   
+                                  
+          
+                                 if(!empty($filter)){
+                                        foreach ($filter as $key => $value) {
+                                   
+          
+                                                $final[$key] = (object)$value;
+                                               
+                                              
+                                        }
+                                        sort($final );
+                                        $this->data['last_week'] =   $final;
+                                 }
+
+
+                            
+                       }
                     
                         return;
 

@@ -199,8 +199,9 @@
 
         <div style="overflow-x:auto;">
 
+            <?php if(!empty($data->last_week)): ?>
 
-            <?php foreach ($data->last_week as $item) :   ?>
+            <?php foreach ($data->last_week as $item):?>
 
 
             <div class="mb-4">
@@ -214,8 +215,28 @@
                     <div class="progress-bar bg-success progress-total" data-progress=" <?= $item->total ?>">
                     </div>
                 </div>
+
+
             </div>
             <?php endforeach; ?>
+            <?php if(count($data->last_week) < 7):?>
+            <div class="mt-5  rounded w-75 m-auto l-bg-green-dark digital">
+                <p class="fs-4 ">The remaining (<?= 7 - count($data->last_week)  ?>) days do not contain any
+                    sales
+                </p>
+            </div>
+
+            <?php endif; ?>
+
+            <?php else : ?>
+            <div class="mt-5  rounded w-75 m-auto l-bg-green-dark digital">
+                <p class="fs-4 ">Last week contains no sales
+
+
+                </p>
+            </div>
+            <?php endif; ?>
+
 
 
 
