@@ -101,8 +101,11 @@
 
 
 
-<div class="row">
-    <div class=" col-lg-12  col-md-11 col-11  m-auto  mb-5   top-five  top-five-das">
+
+
+
+<div class="row mt-3 ">
+    <div class=" col-lg-6  col-md-11 col-11   mb-5   top-five2 ms-4 ">
         <div class=" mb-2  fs-6  ">
             <caption>Top Five Expensive Items To Buy</caption>
 
@@ -154,14 +157,20 @@
                 </tbody>
             </table>
         </div>
+
     </div>
+    <div class=" col-lg-5  col-md-12 col-12  top-five-das">
+        <p class="text-dark">Distribution of sold items </p>
+        <canvas id="myChart"></canvas>
+    </div>
+
+
 </div>
 
 
 
-
-<div class="row">
-    <div class=" col-lg-4  col-md-11 col-11  mt-3    top-five  ms-4 me-3 ">
+<div class="row ">
+    <div class=" col-lg-4  col-md-11 col-11  mt-3    top-five2  ms-4 me-3 ">
 
         <p class="text-dark mb-5">The quantity in stock for each item </p>
         <p class="quantity-in-stock"> </p>
@@ -192,7 +201,7 @@
     </div>
 
 
-    <div class=" col-lg-7  col-md-11 col-11  mt-3    top-five  ms-lg-5 mx-4">
+    <div class=" col-lg-7  col-md-11 col-11  mt-3    top-five2  ms-lg-5 mx-4">
 
         <p class="text-dark mb-5">Total sales for each day in the last week </p>
         <p class="quantity-in-stock"> </p>

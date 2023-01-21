@@ -212,7 +212,7 @@ class Admin extends Controller
           
                                    
                                   
-          
+                                  
                                  if(!empty($filter)){
                                         foreach ($filter as $key => $value) {
                                    
@@ -221,14 +221,18 @@ class Admin extends Controller
                                                
                                               
                                         }
-                                        sort($final );
+                                      
+                                      
+                                        sort($final);
+                                     
                                         $this->data['last_week'] =   $final;
                                  }
 
 
                             
                        }
-                    
+              
+
                         return;
 
                 }

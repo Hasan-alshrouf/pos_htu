@@ -502,6 +502,44 @@ class Transactions extends Controller
         }
 
 
+        public function quntity_item(){
+                $one = new Item;
+                $quntity_and_nameitem = array();
+
+                $all_item = $one->get_all();
+                $quntity_item = 0;    
+                foreach ($all_item as $item) {
+                       
+                        $one_item = $one->get_item($item->id);
+                             
+                         
+                       if(!empty($one_item)){
+                        foreach ($one_item as $value) {
+                        
+                                 $quntity_item += $value->quntity_item;
+                                
+                                }
+                                
+                                $quntity_and_nameitem[] =(object) array(  
+                                        'id'=> $value->id,
+                                        'name' =>  $item->name ,
+                                        'total_quntity' => $quntity_item,
+                                 
+                                    );
+        
+                       }
+                       $quntity_item = null;  
+                       
+               
+
+                }
+
+                $this->response_schema['body'] = $quntity_and_nameitem ;    
+            
+         
+        }
+
+
       
 
 

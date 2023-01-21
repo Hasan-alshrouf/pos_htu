@@ -28,6 +28,7 @@ $(".Edit-Profile").click(function () {
 
 //////////////////////////progress-bar //////////////////////////
 
+
 $('.progress-quantity').each(function () {
 
     var number = $(this).attr('data-progress');
@@ -57,7 +58,6 @@ $('.progress-total').each(function () {
 
     }, 1500);
 })
-
 
 
 
@@ -102,15 +102,67 @@ function clockUpdate() {
 }
 
 
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////API///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
+
+$.ajax({
+    type: "GET",
+    url: "http://pos_htu.local/sales_api/quntity_item",
+    success: function (response) {
+
+        var xValues = [];
+        var yValues = [];
+        var barColors = [];
+        var tot = 0;
+        response.body.forEach(item => {
+            xValues.push(item.name);
+            yValues.push(item.total_quntity);
+            barColors.push("#" + Math.floor(Math.random() * 16777515).toString(16));
+            tot += item.total_quntity;
+
+        });
+
+
+        new Chart("myChart", {
+
+            type: "doughnut",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+
+
+                }]
+            },
+
+            options: {
+                title: {
+
+                    display: true,
+                    text: 'Total sold items ' + tot,
+
+
+
+                }
+            }
+
+
+        });
+
+
+
+    }
+
+});
+
+
 ///////////////////////append item name from table items/////////////////////////////////
-
-
-
 var num = 1;
 $.ajax({
     type: "GET",

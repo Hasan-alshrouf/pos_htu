@@ -87,6 +87,7 @@ Router::post('/sales_api/create_transaction', "Transactions.create_transaction")
 Router::post('/sales_api/edit_transaction', "Transactions.edit_transaction"); 
 Router::PUT('/sales_api/save_update_transaction', "Transactions.save_update_transaction");
 Router::DELETE('/sales_api/delete_transaction', "Transactions.delete_transaction");
+Router::get('/sales_api/quntity_item', "Transactions.quntity_item");
 
 
 // accountant
