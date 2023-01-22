@@ -63,7 +63,7 @@ class Authentication extends Controller
 
 
                 if (isset($_POST['remember_me'])) {
-                        // DO NOT ADD USER ID TO THE COOKIES - SECURITY BREACH!!!!!
+                      
                         \setcookie('email', $logged_in_user->email, time() + (86400 * 30)); // 86400 = 1 day (60*60*24)
                        
                 }
