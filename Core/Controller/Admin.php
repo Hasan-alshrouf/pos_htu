@@ -130,7 +130,7 @@ class Admin extends Controller
                                           case $Monday :
                                                   
                                                   $totalMonday += $transaction->total;
-                                                  $filter[0] = array( // set up the user session that idecates that the user is logged in. 
+                                                  $filter[0] = array( 
                                                           'id' => "1",
                                                           'day' => "Monday",
                                                           'total' => $totalMonday,
