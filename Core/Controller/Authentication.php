@@ -52,7 +52,7 @@ class Authentication extends Controller
                         $this->invalid_redirect();
                 }
 
-                if ($_POST['username'] !== $logged_in_user->username){
+                if ($_POST['email'] !== $logged_in_user->email){
                         $this->invalid_redirect();
                 }
 
