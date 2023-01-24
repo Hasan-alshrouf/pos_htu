@@ -109,7 +109,6 @@ function clockUpdate() {
 
 
 
-
 $.ajax({
     type: "GET",
     url: "http://pos_htu.local/sales_api/quntity_item",
@@ -162,13 +161,13 @@ $.ajax({
 });
 
 
+
 ///////////////////////append item name from table items/////////////////////////////////
 var num = 1;
 $.ajax({
     type: "GET",
     url: "http://pos_htu.local/sales_api",
     success: function (response) {
-
 
         response.body.forEach(item => {
 
@@ -249,7 +248,7 @@ $(function () {
         e.preventDefault();
 
         let item = items.children("option:selected").text();
-        let x = $("input").attr("max");
+        let x = $("#quantity").attr("max");
 
         let data = {
 
@@ -259,10 +258,18 @@ $(function () {
         }
 
 
-
         if (itemQuantity.val() != 0) {
 
-            if (x >= itemQuantity.val()) {
+            if (data.quntity_item > parseInt(x)) {
+
+                $(".popup-no").fadeIn('1000');
+                $(".popup-no").animate({ height: '265px' })
+                $(".ok").click(function () {
+                    $(".popup-no").fadeOut('slow');
+                });
+
+            } else {
+
 
                 $(".popup").fadeIn('slow');
                 $(".popup").animate({ height: '270px' })
@@ -297,24 +304,8 @@ $(function () {
                         num++;
                     }
                 });
-            } else {
-
-                $(".popup-no").fadeIn('1000');
-                $(".popup-no").animate({ height: '265px' })
-                $(".ok").click(function () {
-                    $(".popup-no").fadeOut('slow');
-                });
-
 
             }
-
-        } else if (x == 0) {
-            $(".popup-out-of-stock").fadeIn('1000');
-            $(".popup-out-of-stock").animate({ height: '265px' })
-            $(".ok").click(function () {
-                $(".popup-out-of-stock").fadeOut('slow');
-            });
-
 
         } else {
             $(".popup-empty").fadeIn('1000');
@@ -345,6 +336,7 @@ $.ajax({
     type: "GET",
     url: "http://pos_htu.local/sales_api/git_transaction",
     success: function (response) {
+
         $('#total-sales').text(response.total_sales);
         response.body.forEach(item => {
 

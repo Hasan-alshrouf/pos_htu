@@ -20,13 +20,18 @@ class Router
     public static function redirect(): void
     {
 
+     
         $request = $_SERVER['REQUEST_URI'];
-        $request = \explode("?", $request)[0];
-        $routes = array();
+       
 
+        $request = \explode("?", $request)[0];
+     
+        $routes = array();
+      
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
                 $routes = self::$get_routes;
+              
                 break;
             case 'POST':
                 $routes = self::$post_routes;
@@ -40,6 +45,7 @@ class Router
         }
       
         if (empty($routes) || !array_key_exists($request, $routes)) {
+       
             http_response_code(404);
             new View ('404');
             exit;
@@ -47,10 +53,11 @@ class Router
 
         $controller_namespace = 'Core\\Controller\\';
         $class_arr = explode('.', $routes[$request]);
+      
         $class_name = ucfirst($class_arr[0]);
       
         $class = $controller_namespace . $class_name;
-       
+      
         $instence = new $class;
        
         if (count($class_arr) == 2) {
@@ -63,8 +70,10 @@ class Router
     public static function get($route, $controller): void
     {
         self::$get_routes[$route] = $controller;
+       
+    
     }
-
+   
     public static function post($route, $controller): void
     {
         self::$post_routes[$route] = $controller;

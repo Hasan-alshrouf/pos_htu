@@ -109,13 +109,13 @@ class Admin extends Controller
                                   $totalFriday = 0;
                                   $totalSaturday = 0;
                                   $totalSunday = 0;
-          
+                       
                           foreach ($all_transaction as $key => $transaction) {
           
                                   $date = new \DateTime($transaction->created_att);
                                   $created_at = $date->format('d/m/Y');
                                  
-          
+                                 
                                   $Monday = date('d/m/Y', strtotime("last week Monday"));
                                               
                                   $Tuesday = date('d/m/Y', strtotime("last week Tuesday"));
@@ -130,7 +130,7 @@ class Admin extends Controller
                                           case $Monday :
                                                   
                                                   $totalMonday += $transaction->total;
-                                                  $filter[0] = array( // set up the user session that idecates that the user is logged in. 
+                                                  $filter[0] = array(  
                                                           'id' => "1",
                                                           'day' => "Monday",
                                                           'total' => $totalMonday,
@@ -209,10 +209,9 @@ class Admin extends Controller
                                       }
                          
                                   }
-          
-                                   
-                                  
-                                  
+
+
+                              
                                  if(!empty($filter)){
                                         foreach ($filter as $key => $value) {
                                    
@@ -221,7 +220,7 @@ class Admin extends Controller
                                                
                                               
                                         }
-                                      
+                                        
                                       
                                         sort($final);
                                      

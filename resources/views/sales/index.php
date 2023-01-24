@@ -110,20 +110,6 @@ popup
 </div>
 
 
-
-
-<div class="popup-out-of-stock">
-    <div class="popup-desian">
-        <h2 class="done">Not Done!</h2>
-
-        <p>This item is out of stock !</p>
-        <i class="i-no fa-sharp fa-solid fa-xmark btn-danger"></i>
-        <button class="ok">OK!</button>
-    </div>
-
-</div>
-
-
 <div class="popup-empty">
     <div class="popup-desian">
         <h2 class="done">Not Done!</h2>

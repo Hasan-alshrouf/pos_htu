@@ -161,7 +161,7 @@
     </div>
     <div class=" col-lg-5  col-md-12 col-12  top-five-das">
         <p class="text-dark">Distribution of sold items </p>
-        <canvas id="myChart"></canvas>
+        <canvas id="myChart" style="width:100%"></canvas>
     </div>
 
 

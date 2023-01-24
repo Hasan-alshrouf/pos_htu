@@ -50,6 +50,7 @@ class Transactions extends Controller
             
                 
                 $filter_transaction = array();
+              if(!empty($all_transaction)){
                 foreach ($all_transaction as $transaction) {
 
                         $date = new \DateTime($transaction->created_att);
@@ -68,6 +69,7 @@ class Transactions extends Controller
                 }
                 $this->response_schema['total_sales']= $total ;
 
+              }
                
         }
 
@@ -87,6 +89,7 @@ class Transactions extends Controller
                      
                         $item = new Item; 
                         $items = $item->get_all();
+                        
                        
                         
 
