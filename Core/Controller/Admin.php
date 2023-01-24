@@ -130,7 +130,11 @@ class Admin extends Controller
                                           case $Monday :
                                                   
                                                   $totalMonday += $transaction->total;
+<<<<<<< HEAD
                                                   $filter[0] = array(  
+=======
+                                                  $filter[0] = array( 
+>>>>>>> 22c2773843e6c1a0e5c99e868c8a3032519cfeca
                                                           'id' => "1",
                                                           'day' => "Monday",
                                                           'total' => $totalMonday,

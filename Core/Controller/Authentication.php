@@ -52,7 +52,10 @@ class Authentication extends Controller
                         $this->invalid_redirect();
                 }
 
+<<<<<<< HEAD
                
+=======
+>>>>>>> 22c2773843e6c1a0e5c99e868c8a3032519cfeca
                 if ($_POST['email'] !== $logged_in_user->email){
                         $this->invalid_redirect();
                 }
@@ -64,7 +67,11 @@ class Authentication extends Controller
 
 
                 if (isset($_POST['remember_me'])) {
+<<<<<<< HEAD
                        
+=======
+                      
+>>>>>>> 22c2773843e6c1a0e5c99e868c8a3032519cfeca
                         \setcookie('email', $logged_in_user->email, time() + (86400 * 30)); // 86400 = 1 day (60*60*24)
                        
                 }
