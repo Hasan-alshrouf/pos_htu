@@ -252,3 +252,20 @@
         </div>
     </div>
 </div>
+
+
+<div class="row mt-5   ">
+    <div class=" col-lg-12  col-md-11 col-11   mb-5  ms-4   top-five2   ">
+
+
+
+
+        <canvas class="m-auto " id="myChart2" style="width:100%;max-width:900px"></canvas>
+        <p class="text-dark mt-3">Distribution of The total profits </p>
+
+
+
+
+
+    </div>
+</div>

@@ -32,10 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>id</td>
-                    <td><?= $data->user_one->id ?></td>
-                </tr>
+
                 <tr>
                     <td>Email</td>
                     <td><?= $data->user_one->email ?></td>

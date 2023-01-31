@@ -32,7 +32,7 @@ class User extends Model
  
 
 
-    public function check_username(string $email)
+    public function check_email(string $email)
     {
         $result = $this->connection->query("SELECT * FROM $this->table WHERE email='$email'");
         if ($result) {
@@ -53,6 +53,7 @@ class User extends Model
     {
         $permissions = array();
         $user = $this->get_by_id($_SESSION['user']['user_id']);
+       
         if ($user) {
             // $permissions = \explode(',', $user->permissions);
            $permissions = \unserialize( $user->permissions);//Convert from string to array
@@ -61,24 +62,6 @@ class User extends Model
         
         return $permissions;
     }
-
-
-
-    
-    public function get_by_email($email)
-    {
-        
-        $stmt = $this->connection->prepare("SELECT * FROM $this->table WHERE email=?"); // prepare the sql statement
-        $stmt->bind_param('s', $email); // bind the params per data type 
-        $stmt->execute(); // execute the statement on the DB
-        $result = $stmt->get_result(); // get the result of the execution
-        
-        $stmt->close();
-      
-        return $result->fetch_object();
-    }
-
-
 
 
 

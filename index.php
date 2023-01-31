@@ -13,10 +13,11 @@ spl_autoload_register(function ($class_name) {
     if (strpos($class_name, 'Core') === false)
         return;
         
- 
+      
     $class_name = str_replace("\\", '/', $class_name); // \\ = \
 
     $file_path = __DIR__ . "/" . $class_name . ".php";
+   
    
     require_once $file_path;
    
@@ -26,7 +27,7 @@ if (isset($_COOKIE['email']) && !isset($_SESSION['user'])) { // check if there i
     // log in the user automatically
     
     $user = new User(); // get the user model
-    $logged_in_user = $user->get_by_email($_COOKIE['email']); // get the user by email
+    $logged_in_user = $user->check_email($_COOKIE['email']); // get the user by email
     
 
     $_SESSION['user'] = array( // set up the user session that idecates that the user is logged in. 
@@ -91,6 +92,7 @@ Router::post('/sales_api/edit_transaction', "Transactions.edit_transaction");
 Router::PUT('/sales_api/save_update_transaction', "Transactions.save_update_transaction");
 Router::DELETE('/sales_api/delete_transaction', "Transactions.delete_transaction");
 Router::get('/sales_api/quntity_item', "Transactions.quntity_item");
+Router::get('/sales_api/total_profits', "Transactions.total_profits");
 
 
 // accountant

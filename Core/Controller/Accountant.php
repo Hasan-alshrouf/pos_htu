@@ -160,16 +160,16 @@ class Accountant extends Controller
         $this->permissions(['transacation:read']);
 
        
-        if(!empty($_GET['username'])){
+        if(!empty($_GET['email'])){
 
         $this->view = 'transaction.index';
         $user = new User; // new model user
        
-        $carent_user = $user->get_by_username($_GET['username']);
+        $carent_user = $user->check_email($_GET['email']);
 
         
         if (!$carent_user) {
-            $_SESSION['transaction']['not_find_username'] = "The username you entered does not exist   ";
+            $_SESSION['transaction']['not_find_email'] = "The email you entered does not exist   ";
             Helper::redirect('/accountant');
         }
         
@@ -183,21 +183,23 @@ class Accountant extends Controller
 
          
         $total = 0;
-        foreach ($transactions as $key => $value) {
-            $total += $value->total;
-            $transactions[$key]->display_name =  $carent_user->display_name;
-        }
+        if(!empty($transactions)){
+            foreach ($transactions as $key => $value) {
+                $total += $value->total;
+                $transactions[$key]->display_name =  $carent_user->display_name;
+            }
+    
+            $this->data['count_transaction'] = count( $transaction->get_transactions_by_logged_in_user($user_id));
 
-            // var_dump($transactions);
-            // die;
-        $this->data['count_transaction'] = count($transaction->get_all());
+         
+          
+        }
+        
         $this->data['transactions'] =$transactions;
         $this->data['total_sales'] = $total;
-    
-
         
         }else{
-        $_SESSION['transaction']['not_find_username'] = "You must enter a username to search for it";
+        $_SESSION['transaction']['not_find_email'] = "You must enter a email to search for it";
         Helper::redirect('/accountant');
        }
     }

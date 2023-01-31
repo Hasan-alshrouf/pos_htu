@@ -30,7 +30,7 @@
 
                 <br>
 
-                <input type="password" class="text" name="password">
+                <input type="password" class="text" name="password" required>
                 <span>password</span>
                 <br>
 

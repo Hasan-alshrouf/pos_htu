@@ -10,7 +10,9 @@
                     </div>
                     <div class="card-count-number">
                         <h2 class=" text-center">
-                            <?= $data->count_transaction ?>
+                            <?php if(!empty($data->count_transaction)) : ?>
+                            <?=  $data->count_transaction ?>
+                            <?php endif; ?>
                         </h2>
                     </div>
                     <div class="card-count-number text-centr fs-5 mt-4">
@@ -25,25 +27,25 @@
 
     </div>
 
+
     <form method="GIT" action="/accountant/find">
 
 
         <div class="search_user input-group  w-50  m-sm-auto ">
-            <input type="text" class="form-control"
-                placeholder="Search for transactions of a particular user by username" aria-label="Recipient's username"
-                aria-describedby="button-addon2" name="username">
+            <input type="text" class="form-control" placeholder="Search for transactions of a particular user by email "
+                aria-label="Recipient's username" aria-describedby="button-addon2" name="email">
             <button class="btn btn-outline-primary sehrch-transactions" type="submit"
                 id="button-addon2 ">Sehrch</button>
         </div>
 
 
-        <?php if (!empty($_SESSION) && isset($_SESSION['transaction']['not_find_username']) && !empty($_SESSION['transaction']['not_find_username'])) : ?>
+        <?php if (!empty($_SESSION) && isset($_SESSION['transaction']['not_find_email']) && !empty($_SESSION['transaction']['not_find_email'])) : ?>
 
         <div class="error  ">
-            <?= $_SESSION['transaction']['not_find_username'] ?>
+            <?= $_SESSION['transaction']['not_find_email'] ?>
         </div>
         <?php
-$_SESSION['transaction']['not_find_username'] = null;
+$_SESSION['transaction']['not_find_email'] = null;
 endif; 
 ?>
     </form>
@@ -75,7 +77,7 @@ endif;
 
                 <?php
                   $id = 0; 
-                if ($data->count_transaction) {
+                if ($data->transactions ) {
                  ?>
                 <?php foreach ($data->transactions as $transaction):
                       $id++; ?>

@@ -20,10 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>id</td>
-                    <td><?= $data->item_one->id ?></td>
-                </tr>
+
                 <tr>
                     <td>Name</td>
                     <td><?= $data->item_one->name ?></td>

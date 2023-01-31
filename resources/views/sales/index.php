@@ -41,7 +41,7 @@
 
         <div class="input-group col align-items-center  mb-3  mb-md-5 mx-md-4 mb-sm-5">
             <span class="input-group-text bg-dark text-white">Price (JOD)</span>
-            <input id="price" type="number" class="form-control" value="" min="0">
+            <input id="price" type="number" class="form-control" value="" min="0" disabled>
         </div>
         <div class="col d-flex justify-content-center align-items-center mb-md-5 mb-sm-5 ">
             <button class="btn btn-warning" id="add">Add Transaction</button>
@@ -125,7 +125,7 @@ popup
     <div class="popup-desian">
         <h2 class="done">Wait!</h2>
 
-        <p>Are you sure to delete the Transactions</p>
+        <p>Are you sure to delete this Transaction</p>
         <i class="i-no fa-sharp fa-solid fa-question btn-danger"></i>
 
 
@@ -133,4 +133,13 @@ popup
         <button class="no">NO!</button>
     </div>
 
+</div>
+
+<div class="popup-out-of-stock">
+    <div class="popup-desian">
+        <h2 class="done">Not Done!</h2>
+        <p>This item is out of stock !</p>
+        <i class="i-no fa-sharp fa-solid fa-xmark btn-danger"></i>
+        <button class="ok">OK!</button>
+    </div>
 </div>

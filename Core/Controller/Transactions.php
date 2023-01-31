@@ -3,6 +3,7 @@
 namespace Core\Controller;
 
 use Core\Base\Controller;
+use Core\Base\Model;
 use Core\Model\Item;
 use Core\Model\Transaction;
 use Core\Helpers\Tests;
@@ -21,7 +22,7 @@ class Transactions extends Controller
                 "success" => true, // to privde the response status
                 "message_code" => "",
                 "body" =>  [],
-                "total" =>  ""
+                "total_sales" =>  "0"
             );
 
         public function render()
@@ -63,6 +64,7 @@ class Transactions extends Controller
                 }
     
                 $total = 0;
+                        
                 foreach($filter_transaction as $transaction){
                 $total += $transaction->total;
 
@@ -147,7 +149,8 @@ class Transactions extends Controller
                         $date = new \DateTime($item->created_att);
                         $created_at = $date->format('d/m/y');
                         $date_today  =  date('d/m/y');
-       
+                               
+                                
                         if($created_at ==  $date_today ){
                                 $filter_items[] = $item;
                         }
@@ -256,8 +259,10 @@ class Transactions extends Controller
                         throw new \Exception('No items were found!');
 
                 }
-                $quantity_item = $item->quantity;
-                $quntity_item_create = $this->request_body['quntity_item'];         
+                $quantity_item = $item->quantity; //All quantity in the database 
+
+                $quntity_item_create = $this->request_body['quntity_item'];  //The quantity of the item to be sold
+       
                 $new_quantity = $quantity_item - $quntity_item_create;
 
 
@@ -266,14 +271,13 @@ class Transactions extends Controller
                 $itemm->connection->query($sql);    
 
 
-                // if ( $quntity_item_create != 0)
                 
                 // create transaction On the  transaction table
                 $api->create($this->request_body);
 
 
 
-                // git alst id transaction from the transaction table
+                // git last id transaction from the transaction table
                 $last_transaction = $api->get_by_id($api->connection->insert_id);
                 $last_transaction_id = $last_transaction->id;
                 $user_id = $_SESSION['user']['user_id'];
@@ -287,7 +291,7 @@ class Transactions extends Controller
                 $stmt->close();
              
 
-                // Send the last id create
+                // Send the last id transaction create
                 $this->response_schema['body'] = $last_transaction_id;
 
                 $this->response_schema['message_code'] = "post_created_successfuly";
@@ -384,11 +388,12 @@ class Transactions extends Controller
                          $this->http_code = 404;
                          throw new \Exception('No items were found!');
          
-                 }         
+                 }
+                        
                  $item_id =$result[0]->id; //item id in table items
                  
                 $all_quantity_item = $result[0]->quantity; // all quantity item in table items         
-                $old_quantity_item = $result[0]->quntity_item; //old item quantity         
+                $old_quantity_item = $result[0]->quntity_item; //old item quantity in table transaction        
                 $new_quntity_item = $this->request_body['quntity_item']; //new item quantity         
                 if(!isset($this->request_body['quntity_item']))
                 {
@@ -439,7 +444,8 @@ class Transactions extends Controller
                 $item = new Transaction; 
                 try {
                         
-                 $id = $this->request_body['id'];          
+                 $id = $this->request_body['id'];
+                       
                  if (empty($id)) {
                          $this->http_code = 422;
                          throw new \Exception('id_param_not_found!');
@@ -505,9 +511,13 @@ class Transactions extends Controller
         }
 
 
+
+
+        
+        
         public function quntity_item(){
                 $one = new Item;
-                $quntity_and_nameitem = array();
+                $quntity_and_name_item = array();
 
                 $all_item = $one->get_all();
                 $quntity_item = 0;    
@@ -523,7 +533,7 @@ class Transactions extends Controller
                                 
                                 }
                                 
-                                $quntity_and_nameitem[] =(object) array(  
+                                $quntity_and_name_item[] =(object) array(  
                                         'id'=> $value->id,
                                         'name' =>  $item->name ,
                                         'total_quntity' => $quntity_item,
@@ -534,14 +544,52 @@ class Transactions extends Controller
                        $quntity_item = null;  
                        
                
+                     
+                }
+               
+                $this->response_schema['body'] = $quntity_and_name_item ;    
+            
+                
+        }
+
+
+
+
+
+        public function total_profits(){
+             
+                $items = new Item; // new model item
+                $final_array = array();
+                $total = 0; 
+                $all_item = $items->get_all();
+                foreach ($all_item as $item) {
+
+                        $all_transactions_item = $items->get_item($item->id);
+
+                        if (!empty( $all_transactions_item)) {
+                                foreach ($all_transactions_item as $val) {
+                                        $total += (($val->total) - ($val->cost * $val->quntity_item));
+                                }
+
+
+
+                                $final_array[] =(object) array(  
+                                        'id'=> $val->id,
+                                        'name' =>  $item->name ,
+                                        'total' => $total,
+                                 
+                         
+                                );
+
+
+                        }
+                        $total = null; 
 
                 }
 
-                $this->response_schema['body'] = $quntity_and_nameitem ;    
-            
-         
-        }
+                $this->response_schema['body'] = $final_array ;    
 
+        }
 
       
 

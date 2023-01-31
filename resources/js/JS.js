@@ -6,9 +6,10 @@ const active = document.querySelectorAll("ul li a").forEach((item) => {
 
     if (link.indexOf(item.href) > -1) {
         item.classList.add("activee");
-    }
-});
 
+    }
+
+});
 
 
 ////////////////////close popup no create/////////////////////
@@ -32,6 +33,7 @@ $(".Edit-Profile").click(function () {
 $('.progress-quantity').each(function () {
 
     var number = $(this).attr('data-progress');
+    // 
 
 
     $(this).animate({
@@ -66,7 +68,7 @@ $('.progress-total').each(function () {
 //////////////////// clock/////////////////////////////////////
 
 $(document).ready(function () {
-    $("#navbar-side").fadeIn(0);
+
     clockUpdate();
     setInterval(clockUpdate, 1000);
 
@@ -75,8 +77,12 @@ $(document).ready(function () {
 function clockUpdate() {
     var date = new Date();
 
+    var h = addZero(twelveHour(date.getHours()));
+    var m = addZero(date.getMinutes());
+    // 
     $('.digital-clock').css({ 'color': '#fff' });
     function addZero(x) {
+
         if (x < 10) {
             return x = '0' + x;
         } else {
@@ -85,6 +91,7 @@ function clockUpdate() {
     }
 
     function twelveHour(x) {
+
         if (x > 12) {
             return x = x - 12;
         } else if (x == 0) {
@@ -94,8 +101,6 @@ function clockUpdate() {
         }
     }
 
-    var h = addZero(twelveHour(date.getHours()));
-    var m = addZero(date.getMinutes());
 
 
     $('.digital-clock').text(h + ':' + m)
@@ -109,56 +114,115 @@ function clockUpdate() {
 
 
 
-$.ajax({
-    type: "GET",
-    url: "http://pos_htu.local/sales_api/quntity_item",
-    success: function (response) {
 
-        var xValues = [];
-        var yValues = [];
-        var barColors = [];
-        var tot = 0;
-        response.body.forEach(item => {
-            xValues.push(item.name);
-            yValues.push(item.total_quntity);
-            barColors.push("#" + Math.floor(Math.random() * 16777515).toString(16));
-            tot += item.total_quntity;
+if (link == "http://pos_htu.local/dashboard") {
 
-        });
+    ////////////////////////////////////////Distribution of sold items/////////////////////////////////////////////////////////
 
+    $.ajax({
+        type: "GET",
+        url: "http://pos_htu.local/sales_api/quntity_item",
+        success: function (response) {
 
-        new Chart("myChart", {
+            var xValues = [];
+            var yValues = [];
+            var barColors = [];
+            var total = 0;
+            response.body.forEach(item => {
+                xValues.push(item.name);
+                yValues.push(item.total_quntity);
+                barColors.push("#" + Math.floor(Math.random() * 16666666).toString(16));
+                total += item.total_quntity;
 
-            type: "doughnut",
-            data: {
-                labels: xValues,
-                datasets: [{
-                    backgroundColor: barColors,
-                    data: yValues
+            });
 
 
-                }]
-            },
+            new Chart("myChart", {
 
-            options: {
-                title: {
+                type: "doughnut",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
 
-                    display: true,
-                    text: 'Total sold items ' + tot,
+
+                    }]
+                },
+
+                options: {
+                    title: {
+
+                        display: true,
+                        text: 'Total sold items ' + total,
 
 
 
+                    }
                 }
-            }
 
 
-        });
+            });
 
 
 
-    }
+        }
 
-});
+    });
+
+    /////////////////////////////////////total_profits////////////////////////////////////////////////
+    $.ajax({
+        type: "GET",
+        url: "http://pos_htu.local/sales_api/total_profits",
+        success: function (response) {
+
+            var xValues = [];
+            var yValues = [];
+            var barColors = "#00008B";
+            var total = 0;
+            response.body.forEach(item => {
+                xValues.push(item.name);
+                yValues.push(item.total);
+
+                total += item.total;
+
+            });
+
+
+            new Chart("myChart2", {
+
+                type: "bar",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        backgroundColor: barColors,
+                        data: yValues
+
+
+                    }]
+                },
+
+                options: {
+                    legend: { display: false },
+                    title: {
+
+                        display: true,
+                        text: 'The total profits : ' + total + "$",
+
+
+
+                    }
+                }
+
+
+            });
+
+
+
+        }
+
+    });
+}
 
 
 
@@ -176,6 +240,7 @@ $.ajax({
            `);
 
 
+
         });
     }
 
@@ -186,9 +251,14 @@ $.ajax({
 
 
 $("#items").change(function () {
-    // git items_id selected
-    items_id = $(this).children(":selected").attr("value")
 
+
+    doAjax_quantity();
+});
+
+function doAjax_quantity() {
+    // git items_id selected
+    items_id = $("#items").children(":selected").attr("value")
     $.ajax({
         type: "POST",
         url: "http://pos_htu.local/sales_api/quantity",
@@ -225,14 +295,17 @@ $("#items").change(function () {
 
 
         }
-    });
 
-});
+    });
+}
+
+
 
 
 
 
 ///////////////////////append new transaction when pressing the add /////////////////////////////////
+var num_Delete = 1;
 
 $(function () {
     const items = $('#items');
@@ -248,7 +321,8 @@ $(function () {
         e.preventDefault();
 
         let item = items.children("option:selected").text();
-        let x = $("#quantity").attr("max");
+
+        let allowed_quantity = $("#quantity").attr("max");
 
         let data = {
 
@@ -258,17 +332,9 @@ $(function () {
         }
 
 
-        if (itemQuantity.val() != 0) {
+        if (itemQuantity.val() && item !== "Open this select menu" && data.total && data.total != 0) {
 
-            if (data.quntity_item > parseInt(x)) {
-
-                $(".popup-no").fadeIn('1000');
-                $(".popup-no").animate({ height: '265px' })
-                $(".ok").click(function () {
-                    $(".popup-no").fadeOut('slow');
-                });
-
-            } else {
+            if (data.quntity_item <= parseInt(allowed_quantity) && data.quntity_item != 0) {
 
 
                 $(".popup").fadeIn('slow');
@@ -278,34 +344,123 @@ $(function () {
                 $.ajax({
                     type: "post",
                     url: "http://pos_htu.local/sales_api/create_transaction",
-                    data: JSON.stringify(data),
 
+                    data: JSON.stringify({
+                        item_id: items.val(),
+                        total: itemPrice.val(),
+                        quntity_item: itemQuantity.val()
+
+                    }),
 
                     success: function (response) {
+
+
                         $('#total-sales').text(parseInt(response.total_sales) + parseInt(data['total']));
 
-
                         table.append(`
-            <tr>
-                <td>${num}</td>
-                <td>${item}</td>
-                <td>${data['quntity_item']}</td>
-                <td>${data['total']} $</td>
-             
-                <td>
-                <a href="/sales/edit?id=${response.body}" class="btn btn-secondary" > 
-                Edit </a>
-                <a href="/sales?id_delete=${response.body}" class="btn btn-danger" id="${response.body}">
-                Delete</i>
-               </a>
-               </td>
-            </tr>
-           `);
+                                <tr>
+                                    <td>${num}</td>
+                                    <td>${item}</td>
+                                    <td>${data['quntity_item']}</td>
+                                    <td>${data['total']} $</td>
+                                    
+                                    <td>
+                                    <a href="/sales/edit?id=${response.body}" class="btn btn-secondary" > 
+                                    Edit </a>
+                                    <a class="btn btn-danger" data-id="${num_Delete}" id="${response.body}">
+                                    Delete</i>
+                                   </a>
+                                   </td>
+                                </tr>
+                                `);
                         num++;
+                        ////////////////////////delete transaction///////////////////////////////////////////////
+                        $(`a[data-id="${num_Delete}"] `).click(function () {
+
+                            $(".popup-accept-delete").fadeIn('1000');
+
+                            $(".yes").attr('data', `${response.body}`);
+                            $(".yes").click(function () {
+                                var value_to_be_deleted = $(this).attr("data");
+
+
+
+                                $(`a[id="${value_to_be_deleted}"] `).closest("tr").remove();
+                                $(".popup-accept-delete").fadeOut('slow');
+
+
+                                $.ajax({
+
+                                    type: "DELETE",
+                                    url: "http://pos_htu.local/sales_api/delete_transaction",
+                                    data: JSON.stringify({
+                                        id: value_to_be_deleted
+
+                                    }),
+
+                                });
+
+                                $.ajax({
+
+                                    type: "GET",
+                                    url: "http://pos_htu.local/sales_api/git_transaction",
+                                    success: function (response) {
+
+                                        $('#total-sales').text(response.total_sales);
+
+                                    }
+
+
+                                });
+                                doAjax_quantity();
+
+
+
+
+
+
+                            });
+
+
+                            $(".no").click(function () {
+                                $(".popup-accept-delete").fadeOut('slow');
+
+                            });
+
+
+
+                        });
+
+
+
+                        doAjax_quantity();
+
+
                     }
+
+
+
+
+                });
+                num_Delete++;
+
+            } else if (allowed_quantity == 0) {
+                $(".popup-out-of-stock").fadeIn('1000');
+                $(".popup-out-of-stock").animate({ height: '265px' })
+                $(".ok").click(function () {
+                    $(".popup-out-of-stock").fadeOut('slow');
+                });
+
+            } else {
+
+                $(".popup-no").fadeIn('1000');
+                $(".popup-no").animate({ height: '265px' })
+                $(".ok").click(function () {
+                    $(".popup-no").fadeOut('slow');
                 });
 
             }
+
 
         } else {
             $(".popup-empty").fadeIn('1000');
@@ -329,19 +484,19 @@ $(function () {
 
 
 
-let totalSales = 0;
-/////////////////////get_transactions_by_logged_in_user////////////////////////////////
 
+/////////////////////get_transactions_by_logged_in_user////////////////////////////////
 $.ajax({
     type: "GET",
     url: "http://pos_htu.local/sales_api/git_transaction",
     success: function (response) {
 
         $('#total-sales').text(response.total_sales);
+
         response.body.forEach(item => {
 
             $('#table-transaction').append(`
-           <tr>
+           <tr >
             
            <td>${num}</td>
             <td>${item.name}</td>
@@ -353,7 +508,7 @@ $.ajax({
           
             <a href="/sales/edit?id=${item.transactions_id}" class=" btn btn-secondary"> 
             Edit </a>
-            <a href="/sales?id_delete=${item.transactions_id}" class="delete btn btn-danger" id="${item.transactions_id}">
+            <a  class="delete btn btn-danger" data-id="${num_Delete}" id="${item.transactions_id}">
             Delete</i>
            </a>
            
@@ -361,9 +516,68 @@ $.ajax({
            </tr>
        `);
             num++;
+
+
+            ////////////////////////delete transaction///////////////////////////////////////////////
+            $(`a[data-id="${num_Delete}"] `).click(function () {
+
+
+                $(".popup-accept-delete").fadeIn('1000');
+
+                $(".yes").attr('data', `${item.transactions_id}`);
+                $(".yes").click(function () {
+                    var value_to_be_deleted = $(this).attr("data");
+
+
+
+                    $(`a[id="${value_to_be_deleted}"] `).closest("tr").remove();
+                    $(".popup-accept-delete").fadeOut('slow');
+
+
+                    $.ajax({
+
+                        type: "DELETE",
+                        url: "http://pos_htu.local/sales_api/delete_transaction",
+                        data: JSON.stringify({
+                            id: value_to_be_deleted
+
+                        }),
+
+                    });
+
+                    $.ajax({
+
+                        type: "GET",
+                        url: "http://pos_htu.local/sales_api/git_transaction",
+                        success: function (response) {
+                            $('#total-sales').text(response.total_sales);
+
+                        }
+
+
+                    });
+                    doAjax_quantity();
+
+
+
+
+                });
+
+
+                $(".no").click(function () {
+                    $(".popup-accept-delete").fadeOut('slow');
+
+                });
+
+
+            });
+
+            num_Delete++;
         });
 
+
     }
+
 });
 
 
@@ -462,7 +676,7 @@ $(function () {
         let quantityDatabase = $('#updateQuantity').attr("data-database");
         let quantityOld = $('#updateQuantity').attr("data-old");
         let quantityNew = itemQuantity.val();
-        let itemName = item.val()
+
 
         let data = {
             // item_id: id.val(),
@@ -518,41 +732,9 @@ $(function () {
 
 
 
-////////////////////////delete transaction///////////////////////////////////////////////
-
-let id_delete = searchParams.get('id_delete')
-
-if (id_delete != null) {
-
-    $(".popup-accept-delete").fadeIn('1000');
-
-    $(".yes").click(function () {
-        $(".popup-accept-delete").fadeOut('slow');
-        setTimeout(function () {
-            window.location.href = "/sales"
-        });
-
-        $.ajax({
-
-            type: "DELETE",
-            url: "http://pos_htu.local/sales_api/delete_transaction",
-            data: JSON.stringify({
-                id: id_delete
-
-            }),
-
-        });
-
-
-    });
-    $(".no").click(function () {
-        $(".popup-accept-delete").fadeOut('slow');
-        setTimeout(function () {
-            window.location.href = "/sales"
-        });
-    });
 
 
 
 
-}
+
+

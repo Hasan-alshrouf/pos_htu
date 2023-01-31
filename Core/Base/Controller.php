@@ -37,7 +37,7 @@ abstract class Controller
         $user = new User;
         $assigned_permissions = $user->get_permissions();
         // check if the user has all the permissions_set
-       
+     
         foreach ($permissions_set as $permission) {
             if (!in_array($permission, $assigned_permissions)) {
      

@@ -430,7 +430,8 @@ hr {
 .popup-out-of-stock {
     display: none;
 
-    position: absolute;
+
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);

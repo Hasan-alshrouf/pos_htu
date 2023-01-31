@@ -23,9 +23,9 @@ class Router
      
         $request = $_SERVER['REQUEST_URI'];
        
-
+       
         $request = \explode("?", $request)[0];
-     
+        
         $routes = array();
       
         switch ($_SERVER['REQUEST_METHOD']) {
@@ -53,14 +53,15 @@ class Router
 
         $controller_namespace = 'Core\\Controller\\';
         $class_arr = explode('.', $routes[$request]);
-      
+       
         $class_name = ucfirst($class_arr[0]);
       
         $class = $controller_namespace . $class_name;
-      
+        
         $instence = new $class;
-       
+        
         if (count($class_arr) == 2) {
+            
             call_user_func([$instence, $class_arr[1]]);
         }
 

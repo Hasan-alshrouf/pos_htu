@@ -29,10 +29,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Item Id</td>
-                    <td><?= $transaction->item_id?></td>
-                </tr>
+
                 <tr>
                     <td>Item Name </td>
                     <td><?= $transaction->name ?></td>

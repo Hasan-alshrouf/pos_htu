@@ -45,7 +45,7 @@ class Authentication extends Controller
         {
                 // if user doesn't exists, do not authenticate
                 $user = new User();
-                $logged_in_user = $user->check_username($_POST['email']);
+                $logged_in_user = $user->check_email($_POST['email']);
 
                 
                 if (!$logged_in_user) {
@@ -53,18 +53,12 @@ class Authentication extends Controller
                 }
 
 
-               
-
-                if ($_POST['email'] !== $logged_in_user->email){
-                        $this->invalid_redirect();
-                }
-
                 // if ($_POST['password'] !== $logged_in_user->password)
-                if (!\password_verify($_POST['password'], $logged_in_user->password)) {
+                if (!\password_verify($_POST['password'], $logged_in_user->password) || ($logged_in_user->username != $_POST['username'])) {
                         $this->invalid_redirect();
                 }
 
-
+                
                 if (isset($_POST['remember_me'])) {
                         \setcookie('email', $logged_in_user->email, time() + (86400 * 30)); // 86400 = 1 day (60*60*24)
                        

@@ -20,8 +20,8 @@
 
 
         <div class="search_user input-group  w-50  m-sm-auto ">
-            <input type="text" class="form-control" placeholder="Search for a user by username"
-                aria-label="Recipient's username" aria-describedby="button-addon2" name="username">
+            <input type="text" class="form-control" placeholder="Search for a user by email"
+                aria-label="Recipient's username" aria-describedby="button-addon2" name="email">
             <button class="btn btn-outline-primary" type="submit" id="button-addon2 ">Sehrch</button>
         </div>
 
@@ -42,7 +42,7 @@ endif;
 
 <div class="col-lg-11 col-md-11 m-md-auto mb-sm-5 top-five mx-2">
     <div class="d-flex justify-content-between align-items-end mb-3 ">
-        <caption>List Of Users </caption>
+        <caption>List Of ALL Users </caption>
         <a href="/users/create" class="btn btn-secondary "><i class="fa-sharp fa-solid fa-plus"></i> Add New
             User</a>
 

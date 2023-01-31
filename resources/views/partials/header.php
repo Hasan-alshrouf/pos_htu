@@ -12,7 +12,7 @@ use Core\Helpers\Helper; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon"
         href="<?=  $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] ?>/resources/img/Kids-Finance.jpg">
-    <title>Dashboard</title>
+    <title>POS System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
         integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -31,7 +31,7 @@ use Core\Helpers\Helper; ?>
     <nav class="navbar navbar-expand-lg  " id="Home">
         <div class="collapse navbar-collapse" id="clock">
 
-            <a class="navbar-brand   " href="#">
+            <a class="navbar-brand " href="#">
                 <img src="<?=  $_SERVER['REQUEST_SCHEME'] . "://" . $_SERVER['HTTP_HOST'] ?>/resources/views/partials/logo1.jpg"
                     alt="">
 
@@ -45,12 +45,12 @@ use Core\Helpers\Helper; ?>
 
 
         <?php if (Helper::check_permission(['role:admin' ])) : ?>
-        <a class="  li-dashboard nav-link p-4   " href="/dashboard">HOME DASHBOARD</a>
+        <a class="  li-dashboard nav-link p-3   mx-5" href="/dashboard">HOME DASHBOARD</a>
         <?php endif; ?>
 
 
-        <div class="img_header">
-            <?php if (empty($data->user_picture->picture)) : ?>
+        <div class="img_header ">
+            <?php if (empty($data->user_picture->picture)):?>
             <img src="/resources/img/168882.png" alt="">
             <?php else : ?>
             <img src="<?=  $_SERVER['REQUEST_SCHEME'] . "://" .$_SERVER['HTTP_HOST'] ?>/resources/img/<?= $data->user_picture->picture ?>"
@@ -115,7 +115,7 @@ use Core\Helpers\Helper; ?>
         <a class="btn btn-secondary d-lg-block d-sm-none d-none" href="/logout">Logout
             <i class="fa-sharp fa-solid fa-right-from-bracket"></i>
         </a>
-        <div class="digital-clock ms-3 me-4 fs-3  ">00:00</div>
+        <div class="digital-clock ms-3 me-4 fs-3 ">00:00</div>
 
 
 

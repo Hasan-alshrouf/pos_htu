@@ -61,7 +61,7 @@ class Items extends Controller
   
          
           
-            $this->data['items'] = (object)$all;
+            $this->data['items'] = $all;
            
 
      
@@ -141,6 +141,16 @@ class Items extends Controller
         }
 
         $item = new Item; // new model item
+        $all_item = $item->get_all();
+        $item_name = array () ;
+        foreach ($all_item as $value) {
+                $item_name[] = $value->name;
+        }
+          
+        if (in_array($_POST['name'] ,$item_name)) {
+            throw new \Exception('This item name already exists');
+        }
+          
         $item->create($_POST);
         Helper::redirect('/items');
 

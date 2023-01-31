@@ -27,7 +27,7 @@
                 name="Description"><?= $data->item_one->Description ?></textarea>
 
 
-            <button type="submit" class="button">Create</button>
+            <button type="submit" class="button">Update</button>
     </form>
 </div>
 

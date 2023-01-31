@@ -48,7 +48,7 @@
 
 <div class="col-lg-11 col-md-11 m-md-auto mb-sm-5 top-five  mx-2">
     <div class="d-flex justify-content-between align-items-end mb-3  ">
-        <caption>List of items </caption>
+        <caption>List Of ALL Items </caption>
         <a href="/items/create" class="btn btn-secondary  "><i class="fa-sharp fa-solid fa-plus"></i> Add New
             Item</a>
 

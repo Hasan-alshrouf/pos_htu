@@ -38,29 +38,30 @@ class Users extends Controller
        $user = new User; // new model user
        $selected_users = $user->get_all();
        $this->data['count'] = count($user->get_all());
-        
        
-         // htmlspecialchars all item
+         // htmlspecialchars all users
          $all_users = array () ;
         $all = array () ;
           foreach ( $selected_users as   $users) {
            
             
             foreach ($users as $key => $user) {
+              
               $all_users[$key] = \htmlspecialchars($user);
-             
+            
            }
           
-             
             $all[] = (object)$all_users;
  
+           
           }
          
        
         
-          $this->data['users'] = (object)$all;
+          $this->data['users'] = $all;
          
-    
+      
+          
 
     }
 
@@ -267,6 +268,7 @@ class Users extends Controller
     {
         
         $this->permissions(['role:admin']);
+        
         $user = new User; // new model user
         $user->delete($_GET['id']);
         Helper::redirect('/users');
@@ -313,14 +315,14 @@ class Users extends Controller
 
     public function update_picture()
     {
+
         
-        // $file_name = '';
         if (!empty($_FILES)) {
             $targetDir =  "resources/img/" ;
             $fileName = basename($_FILES["picture"]["name"]);
            
             $user = new User;
-       
+            
             move_uploaded_file($_FILES['picture']['tmp_name'],  $targetDir. $fileName);
             if (!empty($fileName)) {
                 $user_id = $_SESSION['user']['user_id'];
@@ -345,20 +347,20 @@ class Users extends Controller
 
 
      /**
-     * find user by username
+     * find user by email
      *
      * @return array
      */
         public function find_user()
         {
             $this->permissions(['role:admin']);
-            if(!empty($_GET['username'])){
+            if(!empty($_GET['email'])){
             $this->view = 'users.single';
             $user = new User; // new model user
           
-            $carent_user = $user->get_by_username($_GET['username']);
+            $carent_user = $user->check_email($_GET['email']);
             if (!$carent_user) {
-                $_SESSION['user']['not_find_user'] = "The username you entered does not exist   ";
+                $_SESSION['user']['not_find_user'] = "The email you entered does not exist   ";
                 Helper::redirect('/users');
             }
             
@@ -368,7 +370,7 @@ class Users extends Controller
             $carent_user->permissions = $user->permissions_matching($carent_user->permissions);
             $this->data['user_one'] = $carent_user;
            }else{
-            $_SESSION['user']['not_find_user'] = "You must enter a username to search for it";
+            $_SESSION['user']['not_find_user'] = "You must enter a email to search for it";
             Helper::redirect('/users');
            }
         }
